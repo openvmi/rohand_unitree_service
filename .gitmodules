@@ -1,0 +1,3 @@
+[submodule "src/rohand_unitree_service/ohand_serial_sdkpy"]
+	path = src/rohand_unitree_service/ohand_serial_sdkpy
+	url = https://github.com/oymotion/ohand_serial_sdk_python.git
