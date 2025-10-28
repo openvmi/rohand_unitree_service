@@ -1,0 +1,7 @@
+module rohand {
+    struct hand_ctrl {
+        uint8 finger_id;
+        uint16 position;
+        uint8 speed; 
+    };
+};
