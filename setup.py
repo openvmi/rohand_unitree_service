@@ -1,22 +1,24 @@
-"""
-    Setup file for rohand_unitree_service.
-    Use setup.cfg to configure your project.
+from setuptools import setup, find_packages
 
-    This file was generated with PyScaffold 4.6.
-    PyScaffold helps you to put up the scaffold of your new Python project.
-    Learn more under: https://pyscaffold.org/
-"""
+VERSION = "25.10.30"
 
-from setuptools import setup
+INSTALL_REQUIRES = []
+EXCLUDE_PACKAGES = [
+    "ohand_serial_sdk_python",
+    "unitree_sdk2_python"
+]
 
-if __name__ == "__main__":
-    try:
-        setup(use_scm_version={"version_scheme": "no-guess-dev"})
-    except:  # noqa
-        print(
-            "\n\nAn error occurred while building the project, "
-            "please ensure you have the most updated version of setuptools, "
-            "setuptools_scm and wheel with:\n"
-            "   pip install -U setuptools setuptools_scm wheel\n\n"
-        )
-        raise
+setup(
+    name="rohand_unitree_service",
+    version=VERSION,
+    author="oymotion",
+    author_email="info@oymotion.com",
+    long_description=open("README.md", "r", encoding="utf-8").read(),
+    long_description_content_type="text/markdonw",
+    license="BSD-2-Clause",
+    description="rohand service for unitree",
+    url="",
+    packages=find_packages(where="src", exclude=EXCLUDE_PACKAGES),
+    package_dir={"":"src"},
+    install_requreis=INSTALL_REQUIRES
+)
