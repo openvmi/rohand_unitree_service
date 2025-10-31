@@ -1,5 +1,5 @@
 from .core import ROHandCtrl, ROHandCtrlMode
-from unitree_sdk2py.core.channel import ChannelSubscriber, ChannelFactoryInitialize
+from unitree_sdk2py.core.channel import ChannelSubscriber
 from ohand.constants import *
 from ohand.interface.uart import *
 from ohand.OHandSerialAPI import OHandSerialAPI
