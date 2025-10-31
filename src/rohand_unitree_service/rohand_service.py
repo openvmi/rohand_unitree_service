@@ -28,6 +28,8 @@ class ROHandService:
                                              0x01,
                                              send_data_impl,
                                              recv_data_impl)
+        self._ohand_instane.HAND_SetTimerFunction(get_milli_seconds_impl,delay_milli_seconds_impl)
+        self._ohand_instane.HAND_SetCommandTimeOut(255)
         self._lock = threading.Lock()
     
     def Init(self):

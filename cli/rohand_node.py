@@ -31,22 +31,22 @@ def _make_parser():
         help="Port for 485 communication"
     )
     parser.add_argument(
-        "--r_hand_installed",
-        type=bool,
-        default=True,
-        help="Right ROHand is installed"
+        "--disable_r_hand",
+        action="store_true",
+        help="Right ROHand is not installed"
     )
     parser.add_argument(
-        "--l_hand_installed",
-        type=bool,
-        default=True,
-        help="Left ROHand is installed"
+        "--disable_l_hand",
+        action="store_true",
+        help="Left ROHand is not installed"
     )
     return parser
 
 if __name__ == "__main__":
     args = _make_parser().parse_args()
     print(f"parameters:\n{vars(args)}")
+    l_hand_installed = not args.disable_l_hand
+    r_hand_installed = not args.disable_r_hand
     if args.nt is not None:
         ChannelFactoryInitialize(0, args.nt)
     else:
@@ -55,8 +55,8 @@ if __name__ == "__main__":
         r_hand_id=args.r_hand_id,
         l_hand_id=args.l_hand_id,
         port = args.port,
-        l_hand_installed = args.l_hand_installed,
-        r_hand_installed = args.r_hand_installed
+        l_hand_installed = l_hand_installed,
+        r_hand_installed = r_hand_installed
     )
     rohand_service.Init()
     while True:

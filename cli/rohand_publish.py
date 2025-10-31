@@ -13,15 +13,13 @@ def _make_parser():
         help="network interface"
     )
     parser.add_argument(
-        "--r_hand_installed",
-        type=bool,
-        default=True,
+        "--disable_r_hand",
+        action="store_true",
         help="Right ROHand is installed"
     )
     parser.add_argument(
-        "--l_hand_installed",
-        type=bool,
-        default=True,
+        "--disable_l_hand",
+        action="store_true",
         help="Left ROHand is installed"
     )
     return parser
@@ -30,6 +28,8 @@ def main():
     args = _make_parser().parse_args()
     l_hand_ctrl_topic = 'rt/rohand/l/ctrl'
     r_hand_ctrl_topic = 'rt/rohand/r/ctrl'
+    r_hand_installed = not args.disable_r_hand
+    l_hand_installed = not args.disable_l_hand
     ChannelFactoryInitialize(0)
     l_publisher = ChannelPublisher(l_hand_ctrl_topic, ROHandCtrl)
     l_publisher.Init()
@@ -37,7 +37,7 @@ def main():
     r_publisher.Init()
 
     while True:
-        if args.r_hand_installed is True:
+        if r_hand_installed is True:
             for i in range(6):
                 print(f"write: r_hand finger_Id:{i}, position: 65535")
                 msg = ROHandCtrl(i, 65535, 255, ROHandCtrlMode.HAND_MODE_POSITION)
@@ -49,7 +49,7 @@ def main():
                 r_publisher.Write(msg)
                 time.sleep(1)
         
-        if args.l_hand_installed is True:
+        if l_hand_installed is True:
             for i in range(6):
                 print(f"write: l_hand finger_Id:{i}, position:65535")
                 msg = ROHandCtrl(i, 65535, 255, ROHandCtrlMode.HAND_MODE_POSITION)
@@ -64,3 +64,5 @@ def main():
         time.sleep(3)
         
 
+if __name__ == "__main__":
+    main()
