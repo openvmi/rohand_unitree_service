@@ -14,8 +14,8 @@ import cyclonedds.idl as idl
 import cyclonedds.idl.annotations as annotate
 import cyclonedds.idl.types as types
 
-# root module import for resolving types
-# import rohand
+# # root module import for resolving types
+# import core
 
 class ROHandCtrlMode(idl.IdlEnum, typename="rohand.ROHandCtrlMode", default="HAND_MODE_POSITION"):
     HAND_MODE_POSITION = auto()
@@ -24,10 +24,10 @@ class ROHandCtrlMode(idl.IdlEnum, typename="rohand.ROHandCtrlMode", default="HAN
 @dataclass
 @annotate.final
 @annotate.autoid("sequential")
-class ROHandCtrl(idl.IdlStruct, typename="rohand.ROHandCtrl"):
+class ROHandCtrl(idl.IdlStruct, typename="core.ROHandCtrl"):
     finger_id: types.uint8
     target_value: types.uint16
     speed: types.uint8
-    mode: 'rohand.ROHandCtrlMode'
+    mode: ROHandCtrlMode
 
 
