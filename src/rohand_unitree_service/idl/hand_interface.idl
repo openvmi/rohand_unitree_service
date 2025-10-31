@@ -1,0 +1,13 @@
+module rohand {
+    enum ROHandCtrlMode {
+        HAND_MODE_POSITION,
+        HAND_MODE_ANGLE
+    };
+
+    struct ROHandCtrl {
+        uint8 finger_id;
+        uint16 target_value;
+        uint8 speed; 
+        ROHandCtrlMode mode;
+    };
+};
