@@ -10,11 +10,21 @@ __all__ = [
 ]
 
 class ROHandService:
-    def __init__(self,r_hand_id=0x01, 
+    def __init__(self, r_hand_id=0x01, 
                  l_hand_id=0x02,
                  port="/dev/ttyUSB0",
-                 l_hand_installed = True,
+                 l_hand_installed=True,
                  r_hand_installed=True):
+        """
+        Initialize the ROHandService.
+
+        Args:
+            r_hand_id (int, optional): Right hand device ID. Defaults to 0x01.
+            l_hand_id (int, optional): Left hand device ID. Defaults to 0x02.
+            port (str, optional): Serial port name. Defaults to "/dev/ttyUSB0".
+            l_hand_installed (bool, optional): Whether left hand is installed. Defaults to True.
+            r_hand_installed (bool, optional): Whether right hand is installed. Defaults to True.
+        """
         self._r_hand_id = r_hand_id
         self._l_hand_id = l_hand_id
         self._port = port
@@ -33,6 +43,9 @@ class ROHandService:
         self._lock = threading.Lock()
     
     def Init(self):
+        """
+        Initialize subscribers for left and right hand control topics.
+        """
         if self._l_hand_installed:
             self._l_hand_subscriber = ChannelSubscriber(self._l_hand_ctrl_topic,ROHandCtrl)
             self._l_hand_subscriber.Init(self._l_hand_ctrl_handler, 10)
@@ -42,25 +55,51 @@ class ROHandService:
             self._r_hand_subscriber.Init(self._r_hand_ctrl_handler, 10)
 
     def _l_hand_ctrl_handler(self, msg: ROHandCtrl):
+        """
+        Handler for left hand control messages.
+
+        Args:
+            msg (ROHandCtrl): Control message for the left hand.
+        """
         self.rohandCtrlHandler(self._l_hand_id, msg)
 
-    def _r_hand_ctrl_handler(self,msg: ROHandCtrl):
+    def _r_hand_ctrl_handler(self, msg: ROHandCtrl):
+        """
+        Handler for right hand control messages.
+
+        Args:
+            msg (ROHandCtrl): Control message for the right hand.
+        """
         self.rohandCtrlHandler(self._r_hand_id, msg)
 
     def rohandCtrlHandler(self, hand_id, msg: ROHandCtrl):
+        """
+        Main handler for hand control messages. Dispatches commands to the hand device.
+
+        Args:
+            hand_id (int): Device ID of the hand.
+            msg (ROHandCtrl): Control message containing command details.
+
+        Returns:
+            None
+        """
         err = HAND_RESP_SUCCESS
         with self._lock:
             if msg.mode == ROHandCtrlMode.HAND_MODE_ANGLE:
-                err = self._ohand_instane.HAND_SetFingerAngle(hand_id,
-                                                              msg.finger_id,
-                                                              msg.target_value,
-                                                              msg.speed,
-                                                              [])
+                err = self._ohand_instane.HAND_SetFingerAngle(
+                    hand_id,
+                    msg.finger_id,
+                    msg.target_value,
+                    msg.speed,
+                    []
+                )
             elif msg.mode == ROHandCtrlMode.HAND_MODE_POSITION:
-                err = self._ohand_instane.HAND_SetFingerPos(hand_id,
-                                                            msg.finger_id,
-                                                            msg.target_value,
-                                                            msg.speed,
-                                                            [])
+                err = self._ohand_instane.HAND_SetFingerPos(
+                    hand_id,
+                    msg.finger_id,
+                    msg.target_value,
+                    msg.speed,
+                    []
+                )
             if err != HAND_RESP_SUCCESS:
                 print(f"rohandCtrl {hand_id} return error:{err}")
