@@ -58,3 +58,7 @@ python3 rohand_node.py
 cd rohand_unitree_service/cli
 python3 rohand_publish.py
 ```
+
+## FAQ
+
+* For the `CYCLONEDDS` related issue，please refer to [unitree_sdk2_python](https://github.com/unitreerobotics/unitree_sdk2_python)
