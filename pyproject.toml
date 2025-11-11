@@ -1,3 +1,28 @@
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "rohand_unitree_service"
+version = "25.11.06"
+description = "rohand service for unitree"
+authors = [
+    {name = "oymotion", email = "info@oymotion.com"}
+]
+dependencies = [
+    "ohand_serial_sdk_python",
+    "unitree_sdk2_python"
+]
+readme = {file = "README.md", content-type = "text/markdown"}
+license = "BSD-2-Clause"
+
+[project.urls]
+Repository = "https://github.com/openvmi/rohand_unitree_service.git"
+
+[tool.setuptools.packages.find]
+where = ["src]
+exclude = [
+    "ohand_serial_sdk_python",
+    "unitree_sdk2_python"
+    ""
+]
