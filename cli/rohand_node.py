@@ -15,7 +15,7 @@ def _make_parser():
     parser.add_argument(
         "--r_hand_id",
         type=int,
-        default=0x01,
+        default=0x03,
         help="ROHand ID for right"
     )
     parser.add_argument(
