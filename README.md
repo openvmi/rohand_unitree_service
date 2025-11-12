@@ -2,6 +2,10 @@
 
 ROHAND Service designed for Unitree robots
 
+* Default Configuration
+    * Left Hand ID: 0x02
+    * Right Hand ID: 0x03
+
 ## Installation
 
 * Installing from source
