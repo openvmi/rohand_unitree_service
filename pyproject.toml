@@ -19,10 +19,12 @@ license = "BSD-2-Clause"
 [project.urls]
 Repository = "https://github.com/openvmi/rohand_unitree_service.git"
 
+[tool.setuptools.package-dir]
+"" = "src"
+
 [tool.setuptools.packages.find]
-where = ["src]
+where = ["src"]
 exclude = [
     "ohand_serial_sdk_python",
-    "unitree_sdk2_python"
-    ""
+    "unitree_sdk2_python",
 ]
